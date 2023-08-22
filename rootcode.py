@@ -3,12 +3,12 @@ import numpy as np
 import os
 import sys
 import tensorflow as tf
-from sklearn.preprocessing import LabelEncoder
-from tensorflow.keras.utils import to_categorical
-
+from keras.callbacks import EarlyStopping
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score, confusion_matrix
+import matplotlib.pyplot as plt
 
-EPOCHS = 10
+EPOCHS = 20
 IMG_WIDTH = 30
 IMG_HEIGHT = 30
 TUMOR_CLASSES = ["category1_tumor", "category2_tumor", "category3_tumor", "no_tumor"]
@@ -30,11 +30,42 @@ def main():
     # Get a compiled neural network
     model = get_model()
 
+    early_stopping = EarlyStopping(monitor='val_loss', patience=2)
     # Fit model on training data
-    model.fit(x_train, y_train, epochs=EPOCHS)
+    history = model.fit(x_train, y_train, epochs=EPOCHS, callbacks=[early_stopping], validation_split=0.2, 
+              validation_data=(x_test, y_test), verbose=2)
 
     # Evaluate neural network performance
-    model.evaluate(x_test, y_test, verbose=2)
+    loss, accuracy = model.evaluate(x_test, y_test, verbose=2)
+    print(f"\nLoss: {loss}")
+    print(f"Accuracy: {accuracy}")
+
+    predictions = model.predict(x_test)
+    y_pred = np.argmax(predictions, axis=1)
+    y_test = np.argmax(y_test, axis=1)
+    train_loss = history.history['loss']
+    val_loss = history.history['val_loss']
+    print("Train Loss: ", train_loss)
+    print("Validation Loss: ", val_loss)
+    print("Accuracy: ", accuracy_score(y_test, y_pred))
+    print("Recall: ", recall_score(y_test, y_pred, average='weighted'))
+    print("Precision: ", precision_score(y_test, y_pred, average='weighted'))
+    print("F1 Score: ", f1_score(y_test, y_pred, average='weighted'))
+    print("Confusion Matrix: \n", confusion_matrix(y_test, y_pred))
+    print("Model Summary: ")
+    model.summary()
+
+    #plot the training and validation accuracy and loss at each epoch and add a title and axis labels and legend
+    epochs = range(len(train_loss))
+    plt.plot(epochs, train_loss, 'r', label='Training loss')
+    plt.plot(epochs, val_loss, 'b', label='Validation loss')
+    plt.title('Training and Validation Loss')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss Value')
+    plt.legend()
+    plt.show()
+
+
 
     # Save model to file
     if len(sys.argv) == 2:
