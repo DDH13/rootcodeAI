@@ -102,9 +102,9 @@ def get_model():
 
         # Add hidden layers with dropout
         tf.keras.layers.Dense(512, activation="relu"),
-        tf.keras.layers.Dropout(0.5),
+        # tf.keras.layers.Dropout(0.5),
         tf.keras.layers.Dense(256, activation="relu"),
-        tf.keras.layers.Dropout(0.5),
+        # tf.keras.layers.Dropout(0.5),
 
         # Output layer
         tf.keras.layers.Dense(4, activation="softmax"),
