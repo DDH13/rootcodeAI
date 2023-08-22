@@ -3,6 +3,8 @@ import numpy as np
 import os
 import sys
 import tensorflow as tf
+from sklearn.preprocessing import LabelEncoder
+from tensorflow.keras.utils import to_categorical
 
 from sklearn.model_selection import train_test_split
 
@@ -33,7 +35,6 @@ def main():
 
     # Evaluate neural network performance
     model.evaluate(x_test, y_test, verbose=2)
-
 
     # Save model to file
     if len(sys.argv) == 2:
@@ -70,9 +71,9 @@ def get_model():
 
         # Add hidden layers with dropout
         tf.keras.layers.Dense(512, activation="relu"),
-        # tf.keras.layers.Dropout(0.5),
+        tf.keras.layers.Dropout(0.5),
         tf.keras.layers.Dense(256, activation="relu"),
-        # tf.keras.layers.Dropout(0.5),
+        tf.keras.layers.Dropout(0.5),
 
         # Output layer
         tf.keras.layers.Dense(4, activation="softmax"),
