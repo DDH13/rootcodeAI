@@ -500,3 +500,183 @@ Accuracy: 0.9356589317321777
 Recall: 0.9356589147286821
 Precision: 0.936396800193846
 F1 Score: 0.935547102298724_________________________________________________________________
+
+
+Model Summary: 
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ batch_normalization (BatchN  (None, None, None, 3)    12        
+ ormalization)                                                   
+                                                                 
+ conv2d (Conv2D)             (None, None, None, 128)   3584      
+                                                                 
+ max_pooling2d (MaxPooling2D  (None, None, None, 128)  0         
+ )                                                               
+                                                                 
+ self_attention (SelfAttenti  (None, None, None, 128)  49152     
+ on)                                                             
+                                                                 
+ conv2d_1 (Conv2D)           (None, None, None, 256)   295168    
+                                                                 
+ max_pooling2d_1 (MaxPooling  (None, None, None, 256)  0         
+ 2D)                                                             
+                                                                 
+ conv2d_2 (Conv2D)           (None, None, None, 512)   1180160   
+                                                                 
+ max_pooling2d_2 (MaxPooling  (None, None, None, 512)  0         
+ 2D)                                                             
+                                                                 
+ conv2d_3 (Conv2D)           (None, None, None, 512)   2359808   
+                                                                 
+ max_pooling2d_3 (MaxPooling  (None, None, None, 512)  0         
+ 2D)                                                             
+                                                                 
+ conv2d_4 (Conv2D)           (None, None, None, 512)   2359808   
+                                                                 
+ max_pooling2d_4 (MaxPooling  (None, None, None, 512)  0         
+ 2D)                                                             
+                                                                 
+ flatten (Flatten)           (None, None)              0         
+                                                                 
+ dense (Dense)               (None, 512)               4194816   
+                                                                 
+ dropout (Dropout)           (None, 512)               0         
+                                                                 
+ dense_1 (Dense)             (None, 4)                 2052      
+                                                                 
+=================================================================
+Total params: 10,444,560
+Trainable params: 10,444,554
+Non-trainable params: 6
+_________________________________________________________________
+
+Model Name: tumor14.h5
+Image Size: 100x100
+Batch Size: 16
+Time taken: 152.8393416404724 seconds
+Loss: 1.1391723155975342
+Accuracy: 0.6077519655227661
+Recall: 0.6077519379844961
+Precision: 0.7057938617490263
+F1 Score: 0.584137498932201_________________________________________________________________
+
+
+Model Summary: 
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ batch_normalization (BatchN  (None, None, None, 3)    12        
+ ormalization)                                                   
+                                                                 
+ conv2d (Conv2D)             (None, None, None, 128)   3584      
+                                                                 
+ max_pooling2d (MaxPooling2D  (None, None, None, 128)  0         
+ )                                                               
+                                                                 
+ self_attention (SelfAttenti  (None, None, None, 128)  49152     
+ on)                                                             
+                                                                 
+ conv2d_1 (Conv2D)           (None, None, None, 256)   295168    
+                                                                 
+ max_pooling2d_1 (MaxPooling  (None, None, None, 256)  0         
+ 2D)                                                             
+                                                                 
+ conv2d_2 (Conv2D)           (None, None, None, 512)   1180160   
+                                                                 
+ max_pooling2d_2 (MaxPooling  (None, None, None, 512)  0         
+ 2D)                                                             
+                                                                 
+ conv2d_3 (Conv2D)           (None, None, None, 512)   2359808   
+                                                                 
+ max_pooling2d_3 (MaxPooling  (None, None, None, 512)  0         
+ 2D)                                                             
+                                                                 
+ conv2d_4 (Conv2D)           (None, None, None, 512)   2359808   
+                                                                 
+ max_pooling2d_4 (MaxPooling  (None, None, None, 512)  0         
+ 2D)                                                             
+                                                                 
+ flatten (Flatten)           (None, None)              0         
+                                                                 
+ dense (Dense)               (None, 512)               4194816   
+                                                                 
+ dropout (Dropout)           (None, 512)               0         
+                                                                 
+ dense_1 (Dense)             (None, 4)                 2052      
+                                                                 
+=================================================================
+Total params: 10,444,560
+Trainable params: 10,444,554
+Non-trainable params: 6
+_________________________________________________________________
+
+Model Name: tumor14.h5
+Image Size: 100x100
+Batch Size: 16
+Time taken: 174.15051889419556 seconds
+Loss: 1.0221023559570312
+Accuracy: 0.6325581669807434
+Recall: 0.6325581395348837
+Precision: 0.6914547032231447
+F1 Score: 0.5915710830925293_________________________________________________________________
+
+
+Model Summary: 
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ batch_normalization (BatchN  (None, None, None, 3)    12        
+ ormalization)                                                   
+                                                                 
+ conv2d (Conv2D)             (None, None, None, 128)   3584      
+                                                                 
+ max_pooling2d (MaxPooling2D  (None, None, None, 128)  0         
+ )                                                               
+                                                                 
+ conv2d_1 (Conv2D)           (None, None, None, 256)   295168    
+                                                                 
+ max_pooling2d_1 (MaxPooling  (None, None, None, 256)  0         
+ 2D)                                                             
+                                                                 
+ conv2d_2 (Conv2D)           (None, None, None, 512)   1180160   
+                                                                 
+ max_pooling2d_2 (MaxPooling  (None, None, None, 512)  0         
+ 2D)                                                             
+                                                                 
+ conv2d_3 (Conv2D)           (None, None, None, 512)   2359808   
+                                                                 
+ max_pooling2d_3 (MaxPooling  (None, None, None, 512)  0         
+ 2D)                                                             
+                                                                 
+ conv2d_4 (Conv2D)           (None, None, None, 512)   2359808   
+                                                                 
+ max_pooling2d_4 (MaxPooling  (None, None, None, 512)  0         
+ 2D)                                                             
+                                                                 
+ flatten (Flatten)           (None, None)              0         
+                                                                 
+ dense (Dense)               (None, 512)               4194816   
+                                                                 
+ dropout (Dropout)           (None, 512)               0         
+                                                                 
+ dense_1 (Dense)             (None, 4)                 2052      
+                                                                 
+=================================================================
+Total params: 10,395,408
+Trainable params: 10,395,402
+Non-trainable params: 6
+_________________________________________________________________
+
+Model Name: tumor14.h5
+Image Size: 100x100
+Batch Size: 16
+Time taken: 226.96763014793396 seconds
+Loss: 0.24142484366893768
+Accuracy: 0.9418604373931885
+Recall: 0.9418604651162791
+Precision: 0.9417570661590923
+F1 Score: 0.9416957564185048_________________________________________________________________

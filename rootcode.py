@@ -5,7 +5,7 @@ import sys
 import tensorflow as tf
 import time
 import imutils
-from keras.callbacks import EarlyStopping
+from keras.callbacks import EarlyStopping, ReduceLROnPlateau
 from keras.preprocessing.image import ImageDataGenerator
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score, confusion_matrix
@@ -50,6 +50,7 @@ def main():
     model = get_model()
 
     early_stopping = EarlyStopping(monitor='val_loss', patience=10,restore_best_weights=True, verbose=2)
+    reduce_learning = ReduceLROnPlateau(monitor = 'val_loss',factor = 0.3,patience = 5,verbose = 1,mode = 'min')
     datagen = ImageDataGenerator(
         rotation_range=10,       # Rotate images by up to 10 degrees
         width_shift_range=0.05,   # Shift images horizontally by up to 20% of the width
@@ -60,7 +61,7 @@ def main():
     augmented_train_data = datagen.flow(x_train, y_train, batch_size=BATCH_SIZE)
     # Fit model on training data
     start_time = time.time()
-    history = model.fit(augmented_train_data, epochs=EPOCHS, callbacks=[early_stopping], validation_split=0.2,
+    history = model.fit(augmented_train_data, epochs=EPOCHS, callbacks=[early_stopping,reduce_learning], validation_split=0.2,
                         validation_data=(x_test, y_test), verbose=2)
     end_time = time.time()
 
@@ -146,8 +147,6 @@ def enhance_image(img):
 	new_img = img[extTop[1]-ADD_PIXELS:extBot[1]+ADD_PIXELS, extLeft[0]-ADD_PIXELS:extRight[0]+ADD_PIXELS].copy()
 	
 	return new_img
-
-
 
 def get_model():
     layers = [
