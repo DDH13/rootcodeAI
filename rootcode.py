@@ -4,22 +4,36 @@ import os
 import sys
 import tensorflow as tf
 import time
+import imutils
 from keras.callbacks import EarlyStopping
+from keras.preprocessing.image import ImageDataGenerator
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score, confusion_matrix
 import matplotlib.pyplot as plt
 from PIL import Image, ImageEnhance
 
-EPOCHS = 20
-BATCH_SIZE = 32
-IMG_WIDTH = 80
-IMG_HEIGHT = 80
+EPOCHS = 60
+BATCH_SIZE = 16
+IMG_WIDTH = 100
+IMG_HEIGHT = 100
 TUMOR_CLASSES = ["category1_tumor", "category2_tumor", "category3_tumor", "no_tumor"]
 TEST_SIZE = 0.4
 DIRECTORY = "../Datathon-Dataset"
 
 
 def main():
+    # Configure GPU memory growth
+    gpus = tf.config.list_physical_devices('GPU')
+    if gpus:
+        print("\n\n\n")
+        try:
+            for gpu in gpus:
+                tf.config.experimental.set_memory_growth(gpu, True)
+                logical_gpus = tf.config.list_logical_devices('GPU')
+        except RuntimeError as e:
+            print(e)
+    
+
     # Seed for reproducibility
     tf.random.set_seed(123)
 
@@ -36,9 +50,17 @@ def main():
     model = get_model()
 
     early_stopping = EarlyStopping(monitor='val_loss', patience=10,restore_best_weights=True, verbose=2)
+    datagen = ImageDataGenerator(
+        rotation_range=10,       # Rotate images by up to 10 degrees
+        width_shift_range=0.05,   # Shift images horizontally by up to 20% of the width
+        height_shift_range=0.05,  # Shift images vertically by up to 20% of the height
+        horizontal_flip=True,    # Flip images horizontally
+    )
+
+    augmented_train_data = datagen.flow(x_train, y_train, batch_size=BATCH_SIZE)
     # Fit model on training data
     start_time = time.time()
-    history = model.fit(x_train, y_train, epochs=EPOCHS,batch_size=BATCH_SIZE, callbacks=[early_stopping], validation_split=0.2,
+    history = model.fit(augmented_train_data, epochs=EPOCHS, callbacks=[early_stopping], validation_split=0.2,
                         validation_data=(x_test, y_test), verbose=2)
     end_time = time.time()
 
@@ -98,16 +120,38 @@ def load_data(base_path):
 
 
 def enhance_image(img):
-    img = Image.fromarray(np.uint8(img))
-    img = ImageEnhance.Brightness(img).enhance(1.5)
-    img = ImageEnhance.Contrast(img).enhance(1.5)
-    img = ImageEnhance.Sharpness(img).enhance(1.5)
-    img = np.array(img) / 255.0
-    return img
+	"""
+	Finds the extreme points on the image and crops the rectangular out of them
+	"""
+	gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+	gray = cv2.GaussianBlur(gray, (3, 3), 0)
+
+	# threshold the image, then perform a series of erosions +
+	# dilations to remove any small regions of noise
+	thresh = cv2.threshold(gray, 45, 255, cv2.THRESH_BINARY)[1]
+	thresh = cv2.erode(thresh, None, iterations=2)
+	thresh = cv2.dilate(thresh, None, iterations=2)
+
+	# find contours in thresholded image, then grab the largest one
+	cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+	cnts = imutils.grab_contours(cnts)
+	c = max(cnts, key=cv2.contourArea)
+
+	# find the extreme points
+	extLeft = tuple(c[c[:, :, 0].argmin()][0])
+	extRight = tuple(c[c[:, :, 0].argmax()][0])
+	extTop = tuple(c[c[:, :, 1].argmin()][0])
+	extBot = tuple(c[c[:, :, 1].argmax()][0])
+	ADD_PIXELS = 0
+	new_img = img[extTop[1]-ADD_PIXELS:extBot[1]+ADD_PIXELS, extLeft[0]-ADD_PIXELS:extRight[0]+ADD_PIXELS].copy()
+	
+	return new_img
+
 
 
 def get_model():
     layers = [
+        tf.keras.layers.BatchNormalization(),
         tf.keras.layers.Conv2D(
             128, (3, 3), activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3),padding='same'),
         tf.keras.layers.MaxPooling2D(pool_size=(2, 2),padding='same'),
@@ -137,7 +181,8 @@ def get_model():
     ]
 
     model = tf.keras.models.Sequential(layers)
-    model.compile(optimizer="adam",
+    optimizer = tf.keras.optimizers.Adam(learning_rate=0.0001)
+    model.compile(optimizer=optimizer,
                   loss="categorical_crossentropy",
                   metrics=["accuracy"])
     return model
