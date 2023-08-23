@@ -12,7 +12,7 @@ from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_sc
 import matplotlib.pyplot as plt
 from PIL import Image, ImageEnhance
 
-EPOCHS = 60
+EPOCHS = 100
 BATCH_SIZE = 16
 IMG_WIDTH = 100
 IMG_HEIGHT = 100
