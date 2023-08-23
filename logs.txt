@@ -21,6 +21,58 @@ _________________________________________________________________
  max_pooling2d_2 (MaxPooling  (None, 4, 4, 512)        0         
  2D)                                                             
                                                                  
+ conv2d_3 (Conv2D)           (None, 4, 4, 1024)        4719616   
+                                                                 
+ max_pooling2d_3 (MaxPooling  (None, 2, 2, 1024)       0         
+ 2D)                                                             
+                                                                 
+ conv2d_4 (Conv2D)           (None, 2, 2, 512)         4719104   
+                                                                 
+ max_pooling2d_4 (MaxPooling  (None, 1, 1, 512)        0         
+ 2D)                                                             
+                                                                 
+ flatten (Flatten)           (None, 512)               0         
+                                                                 
+ dense (Dense)               (None, 512)               262656    
+                                                                 
+ dropout (Dropout)           (None, 512)               0         
+                                                                 
+ dense_1 (Dense)             (None, 4)                 2052      
+                                                                 
+=================================================================
+Total params: 11,182,340
+Trainable params: 11,182,340
+Non-trainable params: 0
+_________________________________________________________________
+
+Time taken: 15.164865970611572
+Loss: 0.7111432552337646
+Accuracy: 0.7062015533447266
+Recall: 0.7062015503875969
+Precision: 0.6942256781227747
+F1 Score: 0.6885108511808958_________________________________________________________________
+
+
+Model Summary: 
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d (Conv2D)             (None, 30, 30, 128)       3584      
+                                                                 
+ max_pooling2d (MaxPooling2D  (None, 15, 15, 128)      0         
+ )                                                               
+                                                                 
+ conv2d_1 (Conv2D)           (None, 15, 15, 256)       295168    
+                                                                 
+ max_pooling2d_1 (MaxPooling  (None, 8, 8, 256)        0         
+ 2D)                                                             
+                                                                 
+ conv2d_2 (Conv2D)           (None, 8, 8, 512)         1180160   
+                                                                 
+ max_pooling2d_2 (MaxPooling  (None, 4, 4, 512)        0         
+ 2D)                                                             
+                                                                 
  conv2d_3 (Conv2D)           (None, 4, 4, 512)         2359808   
                                                                  
  max_pooling2d_3 (MaxPooling  (None, 2, 2, 512)        0         
@@ -35,6 +87,8 @@ _________________________________________________________________
                                                                  
  dense (Dense)               (None, 512)               262656    
                                                                  
+ dropout (Dropout)           (None, 512)               0         
+                                                                 
  dense_1 (Dense)             (None, 4)                 2052      
                                                                  
 =================================================================
@@ -43,8 +97,165 @@ Trainable params: 6,463,236
 Non-trainable params: 0
 _________________________________________________________________
 
-Loss: 0.46226564049720764
-Accuracy: 0.8248062133789062
-Recall: 0.8248062015503876
-Precision: 0.8312007398568654
-F1 Score: 0.8262732624906532_________________________________________________________________
+Time taken: 14.779213905334473
+Loss: 0.6225895881652832
+Accuracy: 0.7325581312179565
+Recall: 0.7325581395348837
+Precision: 0.7426537530201771
+F1 Score: 0.733273865656995_________________________________________________________________
+
+
+Model Summary: 
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d (Conv2D)             (None, 30, 30, 128)       3584      
+                                                                 
+ max_pooling2d (MaxPooling2D  (None, 15, 15, 128)      0         
+ )                                                               
+                                                                 
+ conv2d_1 (Conv2D)           (None, 15, 15, 256)       295168    
+                                                                 
+ max_pooling2d_1 (MaxPooling  (None, 8, 8, 256)        0         
+ 2D)                                                             
+                                                                 
+ conv2d_2 (Conv2D)           (None, 8, 8, 512)         1180160   
+                                                                 
+ max_pooling2d_2 (MaxPooling  (None, 4, 4, 512)        0         
+ 2D)                                                             
+                                                                 
+ conv2d_3 (Conv2D)           (None, 4, 4, 512)         2359808   
+                                                                 
+ max_pooling2d_3 (MaxPooling  (None, 2, 2, 512)        0         
+ 2D)                                                             
+                                                                 
+ conv2d_4 (Conv2D)           (None, 2, 2, 512)         2359808   
+                                                                 
+ max_pooling2d_4 (MaxPooling  (None, 1, 1, 512)        0         
+ 2D)                                                             
+                                                                 
+ flatten (Flatten)           (None, 512)               0         
+                                                                 
+ dense (Dense)               (None, 512)               262656    
+                                                                 
+ dropout (Dropout)           (None, 512)               0         
+                                                                 
+ dense_1 (Dense)             (None, 4)                 2052      
+                                                                 
+=================================================================
+Total params: 6,463,236
+Trainable params: 6,463,236
+Non-trainable params: 0
+_________________________________________________________________
+
+Time taken: 17.330341339111328 seconds
+Loss: 0.5616305470466614
+Accuracy: 0.7976744174957275
+Recall: 0.7976744186046512
+Precision: 0.8020185097216436
+F1 Score: 0.7955256609491034_________________________________________________________________
+
+
+Model Summary: 
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d (Conv2D)             (None, 30, 30, 128)       3584      
+                                                                 
+ max_pooling2d (MaxPooling2D  (None, 15, 15, 128)      0         
+ )                                                               
+                                                                 
+ conv2d_1 (Conv2D)           (None, 15, 15, 256)       295168    
+                                                                 
+ max_pooling2d_1 (MaxPooling  (None, 8, 8, 256)        0         
+ 2D)                                                             
+                                                                 
+ conv2d_2 (Conv2D)           (None, 8, 8, 512)         1180160   
+                                                                 
+ max_pooling2d_2 (MaxPooling  (None, 4, 4, 512)        0         
+ 2D)                                                             
+                                                                 
+ conv2d_3 (Conv2D)           (None, 4, 4, 512)         2359808   
+                                                                 
+ max_pooling2d_3 (MaxPooling  (None, 2, 2, 512)        0         
+ 2D)                                                             
+                                                                 
+ conv2d_4 (Conv2D)           (None, 2, 2, 512)         2359808   
+                                                                 
+ max_pooling2d_4 (MaxPooling  (None, 1, 1, 512)        0         
+ 2D)                                                             
+                                                                 
+ flatten (Flatten)           (None, 512)               0         
+                                                                 
+ dense (Dense)               (None, 512)               262656    
+                                                                 
+ dropout (Dropout)           (None, 512)               0         
+                                                                 
+ dense_1 (Dense)             (None, 4)                 2052      
+                                                                 
+=================================================================
+Total params: 6,463,236
+Trainable params: 6,463,236
+Non-trainable params: 0
+_________________________________________________________________
+
+Time taken: 12.400640964508057 seconds
+Loss: 0.7229188680648804
+Accuracy: 0.7007752060890198
+Recall: 0.7007751937984497
+Precision: 0.6920731696988297
+F1 Score: 0.6903850271626274_________________________________________________________________
+
+
+Model Summary: 
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d (Conv2D)             (None, 30, 30, 128)       3584      
+                                                                 
+ max_pooling2d (MaxPooling2D  (None, 15, 15, 128)      0         
+ )                                                               
+                                                                 
+ conv2d_1 (Conv2D)           (None, 15, 15, 256)       295168    
+                                                                 
+ max_pooling2d_1 (MaxPooling  (None, 8, 8, 256)        0         
+ 2D)                                                             
+                                                                 
+ conv2d_2 (Conv2D)           (None, 8, 8, 512)         1180160   
+                                                                 
+ max_pooling2d_2 (MaxPooling  (None, 4, 4, 512)        0         
+ 2D)                                                             
+                                                                 
+ conv2d_3 (Conv2D)           (None, 4, 4, 512)         2359808   
+                                                                 
+ max_pooling2d_3 (MaxPooling  (None, 2, 2, 512)        0         
+ 2D)                                                             
+                                                                 
+ conv2d_4 (Conv2D)           (None, 2, 2, 512)         2359808   
+                                                                 
+ max_pooling2d_4 (MaxPooling  (None, 1, 1, 512)        0         
+ 2D)                                                             
+                                                                 
+ flatten (Flatten)           (None, 512)               0         
+                                                                 
+ dense (Dense)               (None, 512)               262656    
+                                                                 
+ dropout (Dropout)           (None, 512)               0         
+                                                                 
+ dense_1 (Dense)             (None, 4)                 2052      
+                                                                 
+=================================================================
+Total params: 6,463,236
+Trainable params: 6,463,236
+Non-trainable params: 0
+_________________________________________________________________
+
+Time taken: 15.169423341751099 seconds
+Loss: 0.5392027497291565
+Accuracy: 0.7968991994857788
+Recall: 0.7968992248062016
+Precision: 0.8003564601098682
+F1 Score: 0.7957954808887102_________________________________________________________________

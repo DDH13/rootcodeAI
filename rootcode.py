@@ -3,6 +3,7 @@ import numpy as np
 import os
 import sys
 import tensorflow as tf
+import time
 from keras.callbacks import EarlyStopping
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score, confusion_matrix
@@ -35,8 +36,10 @@ def main():
 
     early_stopping = EarlyStopping(monitor='val_loss', patience=2,restore_best_weights=True, verbose=2)
     # Fit model on training data
+    start_time = time.time()
     history = model.fit(x_train, y_train, epochs=EPOCHS, callbacks=[early_stopping], validation_split=0.2,
                         validation_data=(x_test, y_test), verbose=2)
+    end_time = time.time()
 
     # Evaluate neural network performance
     loss, accuracy = model.evaluate(x_test, y_test, verbose=2)
@@ -45,16 +48,18 @@ def main():
     y_pred = np.argmax(predictions, axis=1)
     y_test = np.argmax(y_test, axis=1)
     
+    print("Time taken: ", end_time - start_time, " seconds")
     print(f"\nLoss: {loss}")
     print("Accuracy: ", accuracy_score(y_test, y_pred))
     print("Recall: ", recall_score(y_test, y_pred, average='weighted'))
     print("Precision: ", precision_score(y_test, y_pred, average='weighted'))
     print("F1 Score: ", f1_score(y_test, y_pred, average='weighted'))
 
-    with open('logs.txt', 'w') as f:
+    with open('logs.txt', 'a') as f:
         #write model summary and evaluation metrics to file
         f.write("\n\n\nModel Summary: \n")
         model.summary(print_fn=lambda x: f.write(x + '\n'))
+        f.write("\nTime taken: " + str(end_time - start_time) + " seconds" )
         f.write("\nLoss: " + str(loss))
         f.write("\nAccuracy: " + str(accuracy))
         f.write("\nRecall: " + str(recall_score(y_test, y_pred, average='weighted')))
@@ -65,7 +70,7 @@ def main():
 
     # Save model to file
     if len(sys.argv) == 2:
-        filename = sys.argv[2]
+        filename = sys.argv[1]
         model.save(filename)
         print(f"Model saved to {filename}.")
 
@@ -120,9 +125,7 @@ def get_model():
 
         # Add hidden layers with dropout
         tf.keras.layers.Dense(512, activation="relu"),
-        # tf.keras.layers.Dropout(0.5),
-        # tf.keras.layers.Dense(256, activation="relu"),
-        # tf.keras.layers.Dropout(0.5),
+        tf.keras.layers.Dropout(0.2),
 
         # Output layer
         tf.keras.layers.Dense(4, activation="softmax"),
