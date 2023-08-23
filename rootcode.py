@@ -10,9 +10,10 @@ from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_sc
 import matplotlib.pyplot as plt
 from PIL import Image, ImageEnhance
 
-EPOCHS = 10
-IMG_WIDTH = 30
-IMG_HEIGHT = 30
+EPOCHS = 20
+BATCH_SIZE = 32
+IMG_WIDTH = 80
+IMG_HEIGHT = 80
 TUMOR_CLASSES = ["category1_tumor", "category2_tumor", "category3_tumor", "no_tumor"]
 TEST_SIZE = 0.4
 DIRECTORY = "../Datathon-Dataset"
@@ -34,10 +35,10 @@ def main():
     # Get a compiled neural network
     model = get_model()
 
-    early_stopping = EarlyStopping(monitor='val_loss', patience=2,restore_best_weights=True, verbose=2)
+    early_stopping = EarlyStopping(monitor='val_loss', patience=10,restore_best_weights=True, verbose=2)
     # Fit model on training data
     start_time = time.time()
-    history = model.fit(x_train, y_train, epochs=EPOCHS, callbacks=[early_stopping], validation_split=0.2,
+    history = model.fit(x_train, y_train, epochs=EPOCHS,batch_size=BATCH_SIZE, callbacks=[early_stopping], validation_split=0.2,
                         validation_data=(x_test, y_test), verbose=2)
     end_time = time.time()
 
@@ -59,6 +60,9 @@ def main():
         #write model summary and evaluation metrics to file
         f.write("\n\n\nModel Summary: \n")
         model.summary(print_fn=lambda x: f.write(x + '\n'))
+        f.write("\nModel Name: " + str(sys.argv[1]))
+        f.write("\nImage Size: " + str(IMG_WIDTH) + "x" + str(IMG_HEIGHT))
+        f.write("\nBatch Size: " + str(BATCH_SIZE))
         f.write("\nTime taken: " + str(end_time - start_time) + " seconds" )
         f.write("\nLoss: " + str(loss))
         f.write("\nAccuracy: " + str(accuracy))

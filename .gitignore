@@ -3,4 +3,5 @@
 /category3_tumor
 /no_tumor
 /.ipynb_checkpoints
-tumor.h5
+*.h5
+image_details.txt
