@@ -63,16 +63,6 @@ def main():
         f.write("_________________________________________________________________")
 
 
-    # plot the training and validation accuracy and loss at each epoch and add a title and axis labels and legend
-    # epochs = range(len(train_loss))
-    # plt.plot(epochs, train_loss, 'r', label='Training loss')
-    # plt.plot(epochs, val_loss, 'b', label='Validation loss')
-    # plt.title('Training and Validation Loss')
-    # plt.xlabel('Epoch')
-    # plt.ylabel('Loss Value')
-    # plt.legend()
-    # plt.show()
-
     # Save model to file
     if len(sys.argv) == 2:
         filename = sys.argv[2]
